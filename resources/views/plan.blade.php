@@ -92,8 +92,7 @@
 
         <div class="col-md-4 ">
             <div class="col-12 plans addone">
-                <p>1 Month - £129</p>
-                <p>£129 per month.</p>
+                <p> £50</p>
                 <p>JOLT bike for 1 month? This is the plan for you. When your plan expires renew or cancel.</p>
             </div>
 
