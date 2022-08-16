@@ -32,25 +32,51 @@ class step extends Model
         }
 
         $data['addone'] = $record->addone ? 50 : 0;
-        $data['total'] = ($data['price']  * $data['months']) + $data['addone'];
-        $data['record'] =$record;
+        $data['total'] = ($data['price'] * $data['months']) + $data['addone'];
+        $data['record'] = $record;
+
+
+        return $data;
+    }
+
+    public function getDetailpack($id)
+    {
+        $id = intval($id);
+
+        $data = array();
+        if ($id == 1) {
+            $data['price'] = 129;
+            $data['months'] = 1;
+            $data['name'] = '1 Month - £129';
+        }
+        if ($id == 2) {
+            $data['price'] = 99;
+            $data['months'] = 3;
+            $data['name'] = '3 Months - £99';
+        }
+        if ($id == 3) {
+            $data['price'] = 79;
+            $data['months'] = 6;
+            $data['name'] = '6 Months - £79';
+        }
+
+
 
 
         return $data;
     }
 
 
-
-    public function setDataAttribute($val){
-        $this->attributes['data']=   json_encode($val);
+    public function setDataAttribute($val)
+    {
+        $this->attributes['data'] = json_encode($val);
     }
 
 
-    public function getDataAttribute($val){
-       return json_decode($val);
+    public function getDataAttribute($val)
+    {
+        return json_decode($val);
     }
-
-
 
 
 }

@@ -35,3 +35,5 @@ Route::post('billing',[\App\Http\Controllers\BikeController::class,'billing']);
 
 Route::post('payment',[\App\Http\Controllers\StripePaymentController::class,'charge'])->name('stripe.post');
 
+
+Route::get('order',[\App\Http\Controllers\OrderController::class,'index']);
