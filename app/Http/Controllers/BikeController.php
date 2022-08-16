@@ -26,28 +26,42 @@ class BikeController extends Controller
             //step 2
             if ($record->step == 2) {
 
-               $data= $record->getDetail($record->id);
+                $data = $record->getDetail($record->id);
 
-                return view('checkout',compact('data'));
+                return view('checkout', compact('data'));
             }
             //step 3
             if ($record->step == 3) {
 
-                $data= $record->getDetail($record->id);
+                $data = $record->getDetail($record->id);
 
-               return view('detail',compact('data'));
+                return view('detail', compact('data'));
             }
             //step 4
             if ($record->step == 4) {
 
-                $data= $record->getDetail($record->id);
+                $data = $record->getDetail($record->id);
 
-                return view('pick',compact('data'));
+                return view('pick', compact('data'));
+            }
+
+            //step 5
+            if ($record->step == 5) {
+
+                $data = $record->getDetail($record->id);
+
+                return view('billing', compact('data'));
+            }
+            //step 6
+            if ($record->step == 6) {
+
+                $data = $record->getDetail($record->id);
+                return view('payment', compact('data'));
+
             }
 
 
-        }
-        else{
+        } else {
             return view('welcome');
         }
 
@@ -67,26 +81,26 @@ class BikeController extends Controller
 
     public function subscription(Request $request)
     {
-     $id=$request->session()->get('id');
+        $id = $request->session()->get('id');
 
-     $record=step::find($id);
+        $record = step::find($id);
 
-     $record->step=2;
-     $record->addone=$request->addone;
-     $record->package=$request->package;
-     $record->update();
+        $record->step = 2;
+        $record->addone = $request->addone;
+        $record->package = $request->package;
+        $record->update();
 
-     return redirect('/');
+        return redirect('/');
 
     }
 
     public function checkout(Request $request)
     {
-        $id=$request->session()->get('id');
+        $id = $request->session()->get('id');
 
-        $record=step::find($id);
+        $record = step::find($id);
 
-        $record->step=3;
+        $record->step = 3;
 
         $record->update();
 
@@ -96,14 +110,51 @@ class BikeController extends Controller
 
     public function detail(Request $request)
     {
-        $id=$request->session()->get('id');
 
-        $record=step::find($id);
-        $record->step=4;
-        $record->data=json_encode($request->all());
+        $id = $request->session()->get('id');
+
+        $record = step::find($id);
+        $record->step = 4;
+        $record->data = $request->all();
 
         $record->update();
 
+        return redirect('/');
+
+    }
+
+    public function pick(Request $request)
+    {
+        $id = $request->session()->get('id');
+
+        $record = step::find($id);
+        $record->step = 5;
+
+
+        $data = collect($record->data);
+        $merge = $data->merge($request->all());
+        $merge->all();
+
+        $record->data = $merge;
+        $record->update();
+
+        return redirect('/');
+
+    }
+    public function billing(Request $request)
+    {
+        $id = $request->session()->get('id');
+
+        $record = step::find($id);
+        $record->step = 6;
+
+        $data = collect($record->data);
+        $merge = $data->merge($request->all());
+        $merge->all();
+
+
+        $record->data = $merge;
+        $record->update();
         return redirect('/');
 
     }

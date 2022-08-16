@@ -33,9 +33,21 @@ class step extends Model
 
         $data['addone'] = $record->addone ? 50 : 0;
         $data['total'] = ($data['price']  * $data['months']) + $data['addone'];
+        $data['record'] =$record;
 
 
         return $data;
+    }
+
+
+
+    public function setDataAttribute($val){
+        $this->attributes['data']=   json_encode($val);
+    }
+
+
+    public function getDataAttribute($val){
+       return json_decode($val);
     }
 
 

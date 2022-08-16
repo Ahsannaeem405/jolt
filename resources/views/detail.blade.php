@@ -4,7 +4,7 @@
 
 
 
-    <form action="{{url('detail')}}" method="post">
+    <form action="{{url('detail')}}" method="post" id="formvalidate">
         @csrf
 
 

@@ -30,4 +30,8 @@ Route::post('language',[\App\Http\Controllers\BikeController::class,'language'])
 Route::post('subscription',[\App\Http\Controllers\BikeController::class,'subscription']);
 Route::post('checkout',[\App\Http\Controllers\BikeController::class,'checkout']);
 Route::post('detail',[\App\Http\Controllers\BikeController::class,'detail']);
+Route::post('pick',[\App\Http\Controllers\BikeController::class,'pick']);
+Route::post('billing',[\App\Http\Controllers\BikeController::class,'billing']);
+
+Route::post('payment',[\App\Http\Controllers\StripePaymentController::class,'charge'])->name('stripe.post');
 

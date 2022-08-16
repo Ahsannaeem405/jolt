@@ -5,6 +5,8 @@
     <form action="{{url('pick')}}" method="post">
         @csrf
 
+        <input type="hidden" value="" id="pick" name="pick">
+
         <div class="card mt-5 ">
 
             <div class="card-body">
@@ -37,21 +39,25 @@
 
                 function initDatePickers() {
 
-                    // $("#dateDepart").datepicker({
-                    //     minDate: 0,
-                    //
-                    //     onChangeMonthYear: function (year, month, inst) {
-                    //
-                    //     },
-                    //     onSelect: function (selectedDate, inst) {
-                    //
-                    //
-                    //     },
-                    // });
+                    availableDates = [];
 
-                    availableDates = ['04-25-2015', '08-16-2022', '08-15-2022'];
+                    var mon = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+                    for (i = 2; i <= 4; i++) {
+                        var date = new Date();
+                        date.setDate(date.getDate() + i);
+
+                        var push = mon[date.getMonth()] + '-' + date.getDate() + '-' + date.getFullYear();
+                        availableDates.push(push);
+                    }
+
+                    console.log(availableDates);
+
+
+                    //availableDates = ['04-25-2015', '08-16-2022', '08-15-2022'];
                     $('#dateDepart').datepicker({
                         dateFormat: 'mm-dd-yy',
+                        setDate: mon[0],
+                        endDate:'',
                         minDate: 0,
                         beforeShowDay: function (d) {
                             var dmy = (d.getMonth() + 1)
@@ -62,7 +68,7 @@
                             if (d.getDate() < 10) dmy += "0";
                             dmy += d.getDate() + "-" + d.getFullYear();
 
-                            console.log(dmy + ' : ' + ($.inArray(dmy, availableDates)));
+                            //  console.log(dmy + ' : ' + ($.inArray(dmy, availableDates)));
 
                             if ($.inArray(dmy, availableDates) != -1) {
                                 return [true, "", "Available"];
@@ -73,7 +79,7 @@
 
                         onSelect: function (selectedDate, inst) {
 
-
+                         $('#pick').val(selectedDate);
                         },
                         todayBtn: "linked",
 
