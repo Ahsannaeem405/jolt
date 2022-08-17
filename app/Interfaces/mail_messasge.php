@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface mail_messasge{
+interface mail_messasge {
 
     const order='Thank You for your Subscription';
     const deactive='Subscription Deactivated successfully';
