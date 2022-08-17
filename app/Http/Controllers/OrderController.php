@@ -13,37 +13,41 @@ class OrderController extends Controller
 
         $orders=Order::whereDate('payment_date',Carbon::now()->format('Y-m-d'))
             ->where('status',1)
-            ->where('complete',0)
             ->get();
 
 
         foreach ($orders as $order){
            $data= $step->getDetailpack($order->package);
-            try {
-                $stripe = \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
-                $charge = \Stripe\Charge::create([
-                    'amount' => $data['price'] + intVal($order->addone) * 100, // $15.00 this time
-                    'currency' => 'GBP',
-                    'customer' => $order->customer_id, // Previously stored, then retrieved
-                ]);
-               $order->repeat=$order->repeat+1;
-               if($order->repeat==$order->total){
-                   $order->complete=1;
+           if ($order->repeat!=$order->total || $order->stop!=1)
+           {
+
+               try {
+                   $stripe = \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+                   $charge = \Stripe\Charge::create([
+                       'amount' => $data['price'] + intVal($order->addone) * 100, // $15.00 this time
+                       'currency' => 'GBP',
+                       'customer' => $order->customer_id, // Previously stored, then retrieved
+                   ]);
+                   if ($order->repeat!=$order->total)
+                   {
+                       $order->repeat=$order->repeat+1;
+                   }
+
+
+                       $next_date=Carbon::createFromFormat('Y-m-d',$order->payment_date)->addMonth(1);
+                       $order->payment_date=$next_date;
+
+
+                   $order->update();
                }
-               else{
-                   $next_date=Carbon::createFromFormat('Y-m-d',$order->payment_date)->addMonth(1);
-                   $order->payment_date=$next_date;
+               catch (\Exception $exception)
+               {
+
+                   $order->status=0;
+                   $order->update();
                }
+           }
 
-
-                $order->update();
-            }
-            catch (\Exception $exception)
-            {
-
-                $order->status=0;
-                $order->update();
-            }
         }
 
     }

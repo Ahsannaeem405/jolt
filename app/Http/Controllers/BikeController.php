@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\step;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -50,7 +51,11 @@ class BikeController extends Controller
 
                 $data = $record->getDetail($record->id);
 
-                return view('billing', compact('data'));
+
+
+                $user=User::where('email',$data['record']->data->email)->exists();
+
+                return view('billing', compact('data','user'));
             }
             //step 6
             if ($record->step == 6) {
@@ -155,6 +160,25 @@ class BikeController extends Controller
 
         $record->data = $merge;
         $record->update();
+
+        if ($request->password){
+            $user=User::create([
+                'name'=>$request->first_name.' '.$request->last_name,
+                'email'=>$record->data->email,
+                'password'=>bcrypt($request->password),
+            ]);
+            $user_id=$user->id;
+            Session::put('user_id',$user_id);
+
+
+        }
+        else{
+            $user_id=User::where('email',$record->data->email)->first();
+            $user_id=$user_id->id;
+            Session::put('user_id',$user_id);
+
+        }
+
         return redirect('/');
 
     }

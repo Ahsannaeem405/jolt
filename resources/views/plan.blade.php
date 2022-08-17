@@ -7,7 +7,7 @@
             border: 1px #cccaca solid;
             border-radius: 10px;
             padding: 20px;
-            height: 200px;
+            height: auto;
             cursor: pointer;
         }
 

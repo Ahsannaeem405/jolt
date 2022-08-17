@@ -34,6 +34,17 @@ Route::post('pick',[\App\Http\Controllers\BikeController::class,'pick']);
 Route::post('billing',[\App\Http\Controllers\BikeController::class,'billing']);
 
 Route::post('payment',[\App\Http\Controllers\StripePaymentController::class,'charge'])->name('stripe.post');
+Route::post('chargeNow/{id}',[\App\Http\Controllers\StripePaymentController::class,'chargeNow'])->name('stripe.post.paynow');
+Route::get('paynow/{id}',[\App\Http\Controllers\StripePaymentController::class,'payNow']);
 
 
 Route::get('order',[\App\Http\Controllers\OrderController::class,'index']);
+
+Auth::routes(['register' => false]);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('/subscription',[\App\Http\Controllers\HomeController::class,'index']);
+Route::get('/subscription/{status}/{id}',[\App\Http\Controllers\HomeController::class,'status']);
+Route::get('/logout',[\App\Http\Controllers\HomeController::class,'logout']);

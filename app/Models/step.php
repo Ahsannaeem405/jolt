@@ -10,6 +10,7 @@ class step extends Model
     use HasFactory;
 
 
+
     public function getDetail($id)
     {
 

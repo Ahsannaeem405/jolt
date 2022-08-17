@@ -4,6 +4,8 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -61,6 +63,15 @@
             <li class="nav-item active">
                 <a class="nav-link" href="#">Faq <span class="sr-only">(current)</span></a>
             </li>
+
+            @auth()
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{url('logout')}}">Logout</a>
+                </li>
+            @endauth
+
+
+
 
         </ul>
     </div>

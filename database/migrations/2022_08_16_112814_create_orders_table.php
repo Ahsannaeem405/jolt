@@ -38,7 +38,8 @@ class CreateOrdersTable extends Migration
             $table->integer('total')->nullable();
             $table->date('payment_date')->nullable();
             $table->integer('status')->nullable();
-            $table->integer('complete')->nullable();
+            $table->integer('stop')->nullable();
+            $table->integer('user_id')->nullable();
             $table->timestamps();
         });
     }

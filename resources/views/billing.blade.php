@@ -29,6 +29,14 @@
                     <input type="number" name="phone_number"  required class="form-control" value="" >
                 </div>
 
+                @if(!$user)
+                    <div class="col-12 my-3">
+                        <lable>Password</lable>
+                        <input type="password" name="password"  required class="form-control" value="" >
+                    </div>
+                @endif
+
+
                 <div class="col-12 d-flex p-0">
                     <div class="col-8 my-3">
                         <lable>Street address</lable>
