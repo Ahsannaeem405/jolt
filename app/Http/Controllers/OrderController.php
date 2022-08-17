@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\mail_messasge;
 use App\Models\Order;
 use App\Models\step;
 use Carbon\Carbon;
@@ -9,7 +10,18 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index(step $step){
+
+    public $step;
+    public $order;
+
+    public function __construct(step $step,Order $order)
+    {
+        $this->step = $step;
+        $this->order = $order;
+    }
+
+
+    public function index(){
 
         $orders=Order::whereDate('payment_date',Carbon::now()->format('Y-m-d'))
             ->where('status',1)
@@ -17,7 +29,7 @@ class OrderController extends Controller
 
 
         foreach ($orders as $order){
-           $data= $step->getDetailpack($order->package);
+           $data= $this->step->getDetailpack($order->package);
            if ($order->repeat!=$order->total || $order->stop!=1)
            {
 
@@ -33,6 +45,14 @@ class OrderController extends Controller
                        $order->repeat=$order->repeat+1;
                    }
 
+                   $data=array(
+                       'view'=>'payment',
+                       'subject'=>mail_messasge::payment,
+                       'id'=>$order->id,
+                       'type'=>'user',
+                   );
+                   $this->order->SendEmail($data);
+
 
                        $next_date=Carbon::createFromFormat('Y-m-d',$order->payment_date)->addMonth(1);
                        $order->payment_date=$next_date;
@@ -45,6 +65,15 @@ class OrderController extends Controller
 
                    $order->status=0;
                    $order->update();
+
+                   $data=array(
+                       'view'=>'error',
+                       'subject'=>mail_messasge::error,
+                       'id'=>$order->id,
+                       'type'=>'user',
+                       'error'=>$exception->getMessage(),
+                   );
+                   $this->order->SendEmail($data);
                }
            }
 

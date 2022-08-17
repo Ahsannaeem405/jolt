@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\mail_messasge;
 use App\Models\Order;
 use App\Models\step;
 use Carbon\Carbon;
@@ -11,10 +12,12 @@ use Illuminate\Support\Facades\Session;
 class StripePaymentController extends Controller
 {
     public $step;
+    public $order;
 
-    public function __construct(step $step)
+    public function __construct(step $step,Order $order)
     {
         $this->step = $step;
+        $this->order = $order;
     }
 
     public function charge(Request $request)
@@ -22,8 +25,6 @@ class StripePaymentController extends Controller
         $id = $request->session()->get('id');
         $record = step::find($id);
         $data = $this->step->getDetail($id);
-
-//dd($record->data);
 
 
         try {
@@ -80,12 +81,20 @@ class StripePaymentController extends Controller
             $record->delete();
             Session::flush();
 
+            $data=array(
+                'view'=>'order',
+                'subject'=>mail_messasge::order,
+                'id'=>$order->id,
+                'type'=>'user',
+            );
+            $this->order->SendEmail($data);
+
+
             return redirect('/')->with('success', 'Order created successfully');
 
 
-        } catch (\Exception $exception) {
-
-            dd($exception);
+        }
+        catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
         }
 
@@ -182,14 +191,35 @@ class StripePaymentController extends Controller
                 $order->status=1;
                 $order->update();
 
+
+                $data=array(
+                    'view'=>'payment',
+                    'subject'=>mail_messasge::payment,
+                    'id'=>$order->id,
+                    'type'=>'user',
+                );
+                $this->order->SendEmail($data);
+
                 return  true;
             }
             catch (\Exception $exception)
             {
 
 
+
                 $order->status=0;
                 $order->update();
+
+
+                $data=array(
+                    'view'=>'error',
+                    'subject'=>mail_messasge::error,
+                    'id'=>$order->id,
+                    'type'=>'user',
+                    'error'=>$exception->getMessage(),
+                );
+                $this->order->SendEmail($data);
+
                 return false;
             }
         }

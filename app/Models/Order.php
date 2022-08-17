@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Mail\subscription;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
 
 class Order extends Model
 {
@@ -33,8 +35,21 @@ class Order extends Model
         }
 
 
-
-
         return $data;
+    }
+
+    public function SendEmail($data)
+    {
+
+
+        $order = Order::find($data['id']);
+        $data['rec'] = $order;
+
+        Mail::to($order->email)->send(new subscription($data));
+
+        $data['type'] = 'admin';
+        Mail::to(env('MAIL_ADMIN'))->send(new subscription($data));
+
+
     }
 }

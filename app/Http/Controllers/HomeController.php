@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\mail_messasge;
 use App\Models\Order;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,8 +16,11 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+
+    public $order;
+    public function __construct(Order $order)
     {
+        $this->order=$order;
         $this->middleware('auth');
     }
 
@@ -40,6 +44,16 @@ class HomeController extends Controller
         $sub = Order::find($id);
         $sub->stop = $status;
         if ($status == 0) {
+
+
+            $data=array(
+                'view'=>'enable',
+                'subject'=>mail_messasge::activated,
+                'id'=>$sub->id,
+                'type'=>'user',
+            );
+            $this->order->SendEmail($data);
+
             if ($sub->total==$sub->repeat)
             {
 
@@ -50,6 +64,15 @@ class HomeController extends Controller
 
 
 
+        }
+        else{
+            $data=array(
+                'view'=>'disable',
+                'subject'=>mail_messasge::deactive,
+                'id'=>$sub->id,
+                'type'=>'user',
+            );
+            $this->order->SendEmail($data);
         }
 
         $sub->update();
