@@ -40,7 +40,7 @@
 <body>
 @include('layout.partials.component2')
 <nav class="navbar navbar-expand-lg navbar-light bg-black bg-black">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="https://ridejolt.co.uk/">
         <img src="https://cdn.shopify.com/s/files/1/0654/0958/1314/files/MainLogo.png?v=1659693748&width=190" alt="">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,19 +49,19 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="#">The Bikes <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="https://ridejolt.co.uk/collections/jolt-electric-bikes">The Bikes <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Monthly Plans <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="https://ridejolt.co.uk/pages/monthly-plans">Monthly Plans <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Contact <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="https://ridejolt.co.uk/pages/contact">Contact <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Media <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="https://ridejolt.co.uk/blogs/news">Media <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="#">Faq <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="https://ridejolt.co.uk/pages/faq">Faq <span class="sr-only">(current)</span></a>
             </li>
 
             @auth()
@@ -69,6 +69,13 @@
                     <a class="nav-link" href="{{url('logout')}}">Logout</a>
                 </li>
             @endauth
+
+            @guest()
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{url('login')}}">Login</a>
+                </li>
+            @endguest
 
 
 
