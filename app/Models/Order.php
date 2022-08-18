@@ -45,10 +45,10 @@ class Order extends Model
         $order = Order::find($data['id']);
         $data['rec'] = $order;
 
-        Mail::to($order->email)->send(new subscription($data));
+        Mail::to($order->email)->queue(new subscription($data));
 
         $data['type'] = 'admin';
-        Mail::to(env('MAIL_ADMIN'))->send(new subscription($data));
+        Mail::to(env('MAIL_ADMIN'))->queue(new subscription($data));
 
 
     }

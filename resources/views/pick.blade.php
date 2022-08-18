@@ -10,7 +10,7 @@
         <div class="card mt-5 ">
 
             <div class="card-body">
-                <h3>Get your e-bike</h3>
+                <h3 class="pl-3">Get your e-bike</h3>
 
 
                 <div data-role="page" id="datepickerPage ">

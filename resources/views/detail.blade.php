@@ -32,9 +32,14 @@
                         <input type="number" name="number" required class="form-control" placeholder="Mobile number">
                     </div>
 
-                    <div class="col-md-6 my-3">
+                    <div class="col-md-12 my-3">
                         <lable>Address</lable>
                         <input type="text"  name="address" required class="form-control" placeholder="Address">
+                    </div>
+
+                    <div class="col-md-12 my-3 d-flex justify-content-end">
+                        <input type="checkbox" class="mr-2" required name="term">
+                        <p class="m-0">I agree to the Terms & conditions </p>
                     </div>
                 </div>
 

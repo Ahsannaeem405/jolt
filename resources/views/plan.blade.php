@@ -7,7 +7,7 @@
             border: 1px #cccaca solid;
             border-radius: 10px;
             padding: 20px;
-            height: auto;
+            height: 220px;
             cursor: pointer;
         }
 
@@ -84,7 +84,7 @@
                 <h3>Select a level of loss cover</h3>
                 <p>With bike theft on the rise in many urban areas, we strongly advise you protect yourself with loss
                     cover.
-                    75% of Zoomo riders have some level of cover. Select one tier of loss cover to protect yourself
+                    75% of jolt riders have some level of cover. Select one tier of loss cover to protect yourself
                     against
                     theft and loss of accessories.
 
@@ -93,8 +93,9 @@
 
             <div class="col-md-4 ">
                 <div class="col-12 plans addone">
-                    <p> £50</p>
-                    <p>JOLT bike for 1 month? This is the plan for you. When your plan expires renew or cancel.</p>
+                    <p>Theft Replacement Protection</p>
+                    <p class="font-weight-bold"> £50  Per Month</p>
+                    <p>Personal liability limited to £300 if bike locked according to jolt guidelines.</p>
                 </div>
 
             </div>
@@ -102,39 +103,61 @@
 
         </div>
 
-        <div class="row my-4">
 
-            <div class="col-12">
 
-                <h3>Suggested accessories</h3>
 
-            </div>
+        @endsection
 
-            <div class="col-md-4 ">
-                <div class="col-12 mt-4">
-                    <div class="card">
-                        <img class="card-img-top"
-                             src="https://cdn.sanity.io/images/hdjyi1x3/production/d2b67ea85f2af1092d843da880b001d9e88a04d8-750x520.png"
-                             alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">Rear Rack</h5>
-                            <p class="card-text">£2 per week
-                            </p>
+        @section('content2')
+            <div class="container-fluid bg-light p-5">
+                <div class="container">
+                    <div class="row my-4 ">
+
+                        <div class="col-12">
+
+                            <h3>Suggested accessories</h3>
 
                         </div>
+
+                        <div class="col-md-4 ">
+                            <div class="col-12 mt-4 p-0">
+                                <div class="card p-3">
+                                    <img class="card-img-top"
+                                         src="https://cdn.sanity.io/images/hdjyi1x3/production/d2b67ea85f2af1092d843da880b001d9e88a04d8-750x520.png"
+                                         alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Rear Rack</h5>
+                                        <p class="card-text">£2 per week
+                                        </p>
+
+                                        <div class="col-12 p-0">
+                                            <button class="bnt btn-outline-dark w-100 p-2" style="border-radius: 10px">
+                                                Add to reservation
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
                     </div>
+
+
+
                 </div>
+
+
 
             </div>
 
-
-        </div>
-
-
-        <div class="col-12 text-right">
-            <button class="btn btn-dark my-4" type="submit">Continue to reservation summary</button>
-        </div>
-
+            <div class="container">
+                <div class="col-12 text-right">
+                    <button class="btn btn-dark my-4" type="submit">Continue to reservation summary</button>
+                </div>
+            </div>
 
         @endsection
 

@@ -88,6 +88,10 @@
 @yield('content')
 </div>
 
+<div class="container-fluid">
+    @yield('content2')
+</div>
+
 
 </body>
 

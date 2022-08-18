@@ -16,7 +16,7 @@
             <img class="w-100"
                  src="https://cdn.shopify.com/s/files/1/0654/0958/1314/products/JOLT_Frontal2.png?v=1659693413&width=600"
                  alt="">
-            <h3>JOLT BRUTE</h3>
+            <h3 class="mt-3">JOLT BRUTE</h3>
 
             <h6>The real EYE-TURNER of electric bikes!</h6>
             <span>plan: {{$data['name']}}</span>
@@ -28,16 +28,17 @@
                 <div class="card-body">
                     <h6>Reservation summary</h6>
 
-                    <div class="d-flex justify-content-between mt-2">
+                    <div class="d-flex justify-content-between mt-4 " >
                         <p class="font-weight-bold">Price</p>
-                        <p class="font-weight-bold">£{{$data['total']}}</p>
+                        <span class="font-weight-bold">x{{$data['months']}}</span>
+                        <p >   £{{$data['price']}}</p>
 
                     </div>
                     <hr>
 
                     <div class="d-flex justify-content-between">
                         <p class="font-weight-bold">Total</p>
-                        <p class="font-weight-bold">£{{$data['total']}}</p>
+                        <p class="font-weight-bold">  £{{$data['total']}}</p>
 
                     </div>
                 </div>

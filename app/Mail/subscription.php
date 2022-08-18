@@ -19,7 +19,6 @@ class subscription extends Mailable
     public $data;
     public function __construct($data)
     {
-
         $this->data=$data;
     }
 
@@ -31,6 +30,5 @@ class subscription extends Mailable
     public function build()
     {
         return $this->from(env('MAIL_FROM_ADDRESS'))->subject($this->data['subject'])->view('mail.'.$this->data['view'])->with('data', $this->data);
-
     }
 }
