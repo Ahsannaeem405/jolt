@@ -20,10 +20,7 @@
                     <lable>Last Name</lable>
                     <input type="text" name="last_name"  required class="form-control" value="" >
                 </div>
-                <div class="col-12 my-3">
-                    <lable>Email</lable>
-                    <input type="email" name="email_address"  required class="form-control" value="" >
-                </div>
+
                 <div class="col-12 my-3">
                     <lable>Phone</lable>
                     <input type="number" name="phone_number"  required class="form-control" value="" >
@@ -49,12 +46,12 @@
                 </div>
 
                 <div class="col-12 my-3">
-                    <lable>city</lable>
-                    <input type="text" name="city"  readonly required class="form-control" value="Landon" >
+                    <lable>City</lable>
+                    <input type="text" name="city"  readonly required class="form-control" value="London" >
                 </div>
 
                 <div class="col-12 my-3">
-                    <lable>country</lable>
+                    <lable>Country</lable>
                     <input type="text" name="country"  readonly required class="form-control" value="United Kingdom" >
                 </div>
 

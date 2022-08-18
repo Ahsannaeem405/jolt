@@ -25,7 +25,6 @@ Route::get('/migrate', function() {
 });
 
 Route::get('/',[\App\Http\Controllers\BikeController::class,'index']);
-
 Route::post('language',[\App\Http\Controllers\BikeController::class,'language']);
 Route::post('subscription',[\App\Http\Controllers\BikeController::class,'subscription']);
 Route::post('checkout',[\App\Http\Controllers\BikeController::class,'checkout']);

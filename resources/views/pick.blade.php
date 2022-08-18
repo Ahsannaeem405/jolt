@@ -1,7 +1,31 @@
 @extends('layout.main')
 
 @section('content')
+    <style>
+        .ui-datepicker td span, .ui-datepicker td a{
+            text-align: center!important;
+        }
+        .ui-state-default {
 
+            border-radius: 5px !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .ui-datepicker {
+            width: 28em;
+            padding: .2em .2em 0;
+            display: none;
+        }
+
+        .ui-datepicker table {
+            width: 100%;
+            font-size: 1.5em;
+            border-collapse: collapse;
+            margin: 0 0 .8em;
+        }
+    </style>
     <form action="{{url('pick')}}" method="post">
         @csrf
 
@@ -57,7 +81,7 @@
                     $('#dateDepart').datepicker({
                         dateFormat: 'mm-dd-yy',
                         setDate: mon[0],
-                        endDate:'',
+                        endDate: '',
                         minDate: 0,
                         beforeShowDay: function (d) {
                             var dmy = (d.getMonth() + 1)
@@ -79,7 +103,7 @@
 
                         onSelect: function (selectedDate, inst) {
 
-                         $('#pick').val(selectedDate);
+                            $('#pick').val(selectedDate);
                         },
                         todayBtn: "linked",
 

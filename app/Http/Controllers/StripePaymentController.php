@@ -58,7 +58,6 @@ class StripePaymentController extends Controller
                 'pick' => $record->data->pick,
                 'first_name' => $record->data->first_name,
                 'last_name' => $record->data->last_name,
-                'email_address' => $record->data->email_address,
                 'phone_number' => $record->data->phone_number,
                 'street_address' => $record->data->street_address,
                 'apt' => $record->data->apt,
