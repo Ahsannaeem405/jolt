@@ -20,6 +20,7 @@ class CreateStepsTable extends Migration
             $table->integer('step')->nullable();
             $table->string('addone')->nullable();
             $table->string('package')->nullable();
+            $table->text('accesories')->nullable();
             $table->text('data')->nullable();
             $table->timestamps();
         });

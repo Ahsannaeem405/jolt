@@ -39,7 +39,7 @@
                         @if($subscription->stop==1)
                             <a href="{{url('subscription/'.encrypt('0').'/'.encrypt($subscription->id))}}">  <button class="btn btn-success">Activate</button></a>
                         @else
-                            <a href="{{url('subscription/'.encrypt('1').'/'.encrypt($subscription->id))}}"><button class="btn btn-danger">De-Activate</button></a>
+                            <a href="{{url('subscription/'.encrypt('1').'/'.encrypt($subscription->id))}}"><button class="btn btn-danger">Deactivate</button></a>
                         @endif
                     </p>
 

@@ -34,6 +34,7 @@
 
                 <div class="card">
                     <div class="card-body">
+                        @include('layout.back')
                         <div class="panel-heading display-table">
                             <div class="row display-tr">
                                 <h3 class="panel-title display-td">Payment Details</h3>
@@ -41,6 +42,7 @@
                             </div>
                         </div>
                         <div class="panel-body mt-3">
+
 
 
 
@@ -89,7 +91,7 @@
 
                                 <div class="row">
                                     <div class="col-12 text-center">
-                                        <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now (£{{$data['total']}})</button>
+                                        <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now (£{{$data['price'] + $data['addone'] +  accesories_total($data['record']->accesories)}})</button>
                                     </div>
                                 </div>
 

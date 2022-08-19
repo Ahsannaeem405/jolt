@@ -45,7 +45,7 @@ class StripePaymentController extends Controller
 
             $customer = \Stripe\Customer::create([
                 'source' => $token->id,
-                'email' => $data['record']->data->email_address,
+                'email' => $data['record']->data->email,
             ]);
 
 
@@ -72,6 +72,7 @@ class StripePaymentController extends Controller
                 'payment_date' => Carbon::createFromFormat('m-d-Y', $record->data->pick)->format('Y-m-d'),
                 'status' => 1,
                 'stop' => 0,
+                'accesories' => $record->accesories,
                 'customer_id' => $customer->id,
                 'user_id' => Session::get('user_id'),
             );
@@ -125,7 +126,7 @@ class StripePaymentController extends Controller
 
             $customer = \Stripe\Customer::create([
                 'source' => $token->id,
-                'email' => $sub->email_address,
+                'email' => $sub->email,
             ]);
 
             $sub->customer_id = $customer->id;
@@ -174,7 +175,7 @@ class StripePaymentController extends Controller
             try {
                 $stripe = \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
                 $charge = \Stripe\Charge::create([
-                    'amount' => $data['price'] + intVal($order->addone) * 100, // $15.00 this time
+                    'amount' => $data['price'] + intVal($order->addone) + accesories_total($order->accesories) * 100, // $15.00 this time
                     'currency' => 'GBP',
                     'customer' => $order->customer_id, // Previously stored, then retrieved
                 ]);

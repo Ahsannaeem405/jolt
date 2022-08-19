@@ -73,11 +73,35 @@ class step extends Model
         $this->attributes['data'] = json_encode($val);
     }
 
+    public function setAccesoriesAttribute($val)
+    {
+        if($val){
+            $this->attributes['accesories'] = json_encode($val);
+        }
+        else{
+            $this->attributes['accesories']=null;
+        }
+
+    }
+
+
+    public function getAccesoriesAttribute($val)
+    {
+        if ($val){
+            return json_decode($val);
+        }
+        else{
+            return null;
+        }
+
+    }
+
 
     public function getDataAttribute($val)
     {
         return json_decode($val);
     }
+
 
 
 }

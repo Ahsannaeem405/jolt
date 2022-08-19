@@ -11,6 +11,14 @@
             cursor: pointer;
         }
 
+        .apply {
+            position: absolute;
+            right: 0;
+            margin-right: 5px;
+            top: 2px;
+            font-size: 15px;
+        }
+
         .active {
             border: 2px solid black;
         }
@@ -47,14 +55,16 @@
 
             <div class="col-md-4 ">
                 <div class="col-12 plans active subscription" pack="1">
+                    <i class="fa fa-check-circle apply" aria-hidden="true"></i>
                     <p>1 Month - £129</p>
-                    <p>£129 per month.</p>
+                    <p class="font-weight-bold">£129 per month.</p>
                     <p>JOLT bike for 1 month? This is the plan for you. When your plan expires renew or cancel.</p>
                 </div>
 
             </div>
             <div class="col-md-4 ">
                 <div class="col-12 plans subscription" pack="2">
+                    <i class="fa fa-check-circle hide apply" aria-hidden="true"></i>
                     <p>3 Months - £99</p>
                     <p>£99 per month - £120 savings</p>
                     <p>Save more by locking into a 3 month contract. Pay monthly at a discounted rate.</p>
@@ -64,6 +74,7 @@
 
             <div class="col-md-4 ">
                 <div class="col-12 plans subscription" pack="3">
+                    <i class="fa fa-check-circle hide apply" aria-hidden="true"></i>
                     <p>6 Months - £79</p>
                     <p>£79 per month - £300 savings</p>
                     <p>Save even more with a 6 month rental. Pay monthly at a more discounted rate.</p>
@@ -93,8 +104,9 @@
 
             <div class="col-md-4 ">
                 <div class="col-12 plans addone">
+                    <i class="fa fa-check-circle hide apply" aria-hidden="true"></i>
                     <p>Theft Replacement Protection</p>
-                    <p class="font-weight-bold"> £50  Per Month</p>
+                    <p class="font-weight-bold"> £50 Per Month</p>
                     <p>Personal liability limited to £300 if bike locked according to jolt guidelines.</p>
                 </div>
 
@@ -103,7 +115,9 @@
 
         </div>
 
+        <div class="accessories">
 
+        </div>
 
 
         @endsection
@@ -113,7 +127,7 @@
                 <div class="container">
                     <div class="row my-4 ">
 
-                        <div class="col-12">
+                        <div class="col-12 ">
 
                             <h3>Suggested accessories</h3>
 
@@ -121,19 +135,27 @@
 
                         <div class="col-md-4 ">
                             <div class="col-12 mt-4 p-0">
-                                <div class="card p-3">
+                                <div class="card p-3 item-added">
+                                    <div class="col-12 text-center text-success success hide">
+                                        <p><i class="fa fa-check-circle " aria-hidden="true"></i>
+                                            Item added to reservation
+
+                                        </p>
+                                    </div>
                                     <img class="card-img-top"
                                          src="https://cdn.sanity.io/images/hdjyi1x3/production/d2b67ea85f2af1092d843da880b001d9e88a04d8-750x520.png"
                                          alt="Card image cap">
                                     <div class="card-body">
                                         <h5 class="card-title">Rear Rack</h5>
-                                        <p class="card-text">£2 per week
+                                        <p class="card-text font-weight-bold">£2 per Month
                                         </p>
 
                                         <div class="col-12 p-0">
-                                            <button class="bnt btn-outline-dark w-100 p-2" style="border-radius: 10px">
+                                            <button class="bnt btn-outline-dark w-100 p-2 add_res" accesories="1" stat="0" type="button"
+                                                    style="border-radius: 10px">
                                                 Add to reservation
                                             </button>
+
                                         </div>
 
                                     </div>
@@ -146,9 +168,7 @@
                     </div>
 
 
-
                 </div>
-
 
 
             </div>
@@ -160,6 +180,7 @@
             </div>
 
         @endsection
+    </form>
 
         @section('js')
             <script>
@@ -172,6 +193,10 @@
                         $('.subscription').removeClass('active');
                         $(this).addClass('active');
 
+                        $('.subscription').find('.fa-check-circle').hide();
+
+                        $(this).find('.fa-check-circle').show();
+
                     });
                     $('.addone').click(function () {
 
@@ -180,12 +205,39 @@
 
                             $('.addone').removeClass('active');
                             $('#addone').val(0);
+                            $(this).find('.fa-check-circle').hide();
 
                         } else {
                             $('.addone').removeClass('active');
                             $(this).addClass('active');
                             $('#addone').val(1);
+                            $(this).find('.fa-check-circle').show();
                         }
+
+
+                    });
+
+                    $('.add_res').click(function () {
+                        var id=$(this).attr('accesories');
+                        if($(this).attr('stat')==0)
+                        {
+                            $(this).attr('stat',1);
+                            $(this).html('Remove');
+                            $('.accessories').append(`<input type="hidden" name="accesories[]" class="acces_${id}" value="${id}">`);
+
+                        }
+                        else{
+                            $(this).attr('stat',0);
+                            $(this).html('Add to reservation');
+                           $('.acces_'+id).remove();
+                        }
+
+
+
+
+                        $(this).closest('.item-added').find('.success').toggle();
+
+
 
 
                     });

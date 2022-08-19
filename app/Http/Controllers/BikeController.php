@@ -27,41 +27,42 @@ class BikeController extends Controller
             //step 2
             if ($record->step == 2) {
 
+                $back = 1;
                 $data = $record->getDetail($record->id);
 
-                return view('checkout', compact('data'));
+                return view('checkout', compact('data', 'back'));
             }
             //step 3
             if ($record->step == 3) {
-
+                $back = 2;
                 $data = $record->getDetail($record->id);
 
-                return view('detail', compact('data'));
+                return view('detail', compact('data', 'back'));
             }
             //step 4
             if ($record->step == 4) {
-
+                $back = 3;
                 $data = $record->getDetail($record->id);
 
-                return view('pick', compact('data'));
+                return view('pick', compact('data', 'back'));
             }
 
             //step 5
             if ($record->step == 5) {
-
+                $back = 4;
                 $data = $record->getDetail($record->id);
 
 
+                $user = User::where('email', $data['record']->data->email)->exists();
 
-                $user=User::where('email',$data['record']->data->email)->exists();
-
-                return view('billing', compact('data','user'));
+                return view('billing', compact('data', 'user', 'back'));
             }
             //step 6
             if ($record->step == 6) {
 
+                $back = 5;
                 $data = $record->getDetail($record->id);
-                return view('payment', compact('data'));
+                return view('payment', compact('data', 'back'));
 
             }
 
@@ -86,6 +87,8 @@ class BikeController extends Controller
 
     public function subscription(Request $request)
     {
+        // dd($request->all());
+
         $id = $request->session()->get('id');
 
         $record = step::find($id);
@@ -93,6 +96,7 @@ class BikeController extends Controller
         $record->step = 2;
         $record->addone = $request->addone;
         $record->package = $request->package;
+        $record->accesories = $request->accesories;
         $record->update();
 
         return redirect('/');
@@ -146,6 +150,7 @@ class BikeController extends Controller
         return redirect('/');
 
     }
+
     public function billing(Request $request)
     {
         $id = $request->session()->get('id');
@@ -160,26 +165,40 @@ class BikeController extends Controller
 
         $record->data = $merge;
         $record->update();
-
-        if ($request->password){
-            $user=User::create([
-                'name'=>$request->first_name.' '.$request->last_name,
-                'email'=>$record->data->email,
-                'password'=>bcrypt($request->password),
+        $user_id = User::where('email', $record->data->email)->first();
+        if ($request->password && !$user_id) {
+            $user = User::create([
+                'name' => $request->first_name . ' ' . $request->last_name,
+                'email' => $record->data->email,
+                'password' => bcrypt($request->password),
             ]);
-            $user_id=$user->id;
-            Session::put('user_id',$user_id);
+            $user_id = $user->id;
+            Session::put('user_id', $user_id);
 
 
-        }
-        else{
-            $user_id=User::where('email',$record->data->email)->first();
-            $user_id=$user_id->id;
-            Session::put('user_id',$user_id);
+        } else {
+
+            $user_id = $user_id->id;
+            Session::put('user_id', $user_id);
 
         }
 
         return redirect('/');
 
+    }
+
+    public function back(Request $request)
+    {
+        $id = $request->session()->get('id');
+
+        $record = step::find($id);
+        $val = decrypt($request->id);
+
+        // dd($val);
+        $record->step = $val;
+        $record->update();
+
+
+        return redirect('/');
     }
 }

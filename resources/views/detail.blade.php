@@ -11,6 +11,7 @@
         <div class="card mt-5">
 
             <div class="card-body">
+                @include('layout.back')
                 <h3>Your details</h3>
                 <div class="row my-5">
                     <div class="col-md-6 my-3">

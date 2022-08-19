@@ -21,6 +21,7 @@ Route::get('/cls', function() {
 });
 Route::get('/migrate', function() {
     Artisan::call('migrate');
+    Artisan::call('schedule:run');
     return 'FINISHED';
 });
 
@@ -31,6 +32,7 @@ Route::post('checkout',[\App\Http\Controllers\BikeController::class,'checkout'])
 Route::post('detail',[\App\Http\Controllers\BikeController::class,'detail']);
 Route::post('pick',[\App\Http\Controllers\BikeController::class,'pick']);
 Route::post('billing',[\App\Http\Controllers\BikeController::class,'billing']);
+Route::get('back/{id}',[\App\Http\Controllers\BikeController::class,'back']);
 
 Route::post('payment',[\App\Http\Controllers\StripePaymentController::class,'charge'])->name('stripe.post');
 Route::post('chargeNow/{id}',[\App\Http\Controllers\StripePaymentController::class,'chargeNow'])->name('stripe.post.paynow');

@@ -34,6 +34,7 @@
         <div class="card mt-5 ">
 
             <div class="card-body">
+                @include('layout.back')
                 <h3 class="pl-3">Get your e-bike</h3>
 
 

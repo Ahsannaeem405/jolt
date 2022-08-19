@@ -10,6 +10,7 @@
         <div class="card mt-5 ">
 
             <div class="card-body">
+                @include('layout.back')
                 <h3>Billing</h3>
 
                 <div class="col-12 my-3">
