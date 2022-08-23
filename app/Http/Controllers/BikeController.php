@@ -119,14 +119,20 @@ class BikeController extends Controller
 
     public function detail(Request $request)
     {
+       
 
         $id = $request->session()->get('id');
 
         $record = step::find($id);
-        $record->step = 4;
-        $record->data = $request->all();
-
-        $record->update();
+        if($request->verification_code == $record->verification_code){
+            $record->step = 4;
+            $record->data = $request->all();
+            $record->update();
+        }
+        else{
+            return redirect()->back()->with('error', 'Your Verification Code is Incorrect');  
+        }
+       
 
         return redirect('/');
 

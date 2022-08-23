@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Mail\subscription;
+use App\Mail\SendOtp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
@@ -41,7 +42,6 @@ class Order extends Model
     public function SendEmail($data)
     {
 
-
         $order = Order::find($data['id']);
         $data['rec'] = $order;
 
@@ -50,7 +50,11 @@ class Order extends Model
         $data['type'] = 'admin';
         Mail::to(env('MAIL_ADMIN'))->queue(new subscription($data));
 
+    }
 
+    public function Sendotp($data)
+    {
+        Mail::to($data['email'])->send(new subscription($data));
     }
 
     public function setAccesoriesAttribute($val)
