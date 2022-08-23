@@ -14,8 +14,10 @@ class StripePaymentController extends Controller
     public $step;
     public $order;
 
+
     public function __construct(step $step,Order $order)
     {
+
         $this->step = $step;
         $this->order = $order;
     }
@@ -102,6 +104,7 @@ class StripePaymentController extends Controller
 
     public function chargeNow(Request $request, $id)
     {
+
         $sub = Order::find($id);
 
 
@@ -112,6 +115,7 @@ class StripePaymentController extends Controller
             $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
 
             $token = $stripe->tokens->create([
+
 
                 'card' => [
                     'number' => $request->card_number,

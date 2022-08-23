@@ -9,6 +9,10 @@ interface mail_messasge {
     const activated='Subscription Activated successfully';
     const error='Payment not successful';
     const payment='Thank You for your payment';
+    const xyz='1';
+
+    //xyz =[];
+
 
 }
 
