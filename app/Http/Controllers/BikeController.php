@@ -119,7 +119,7 @@ class BikeController extends Controller
 
     public function detail(Request $request)
     {
-       
+
 
         $id = $request->session()->get('id');
 
@@ -130,9 +130,9 @@ class BikeController extends Controller
             $record->update();
         }
         else{
-            return redirect()->back()->with('error', 'Your Verification Code is Incorrect');  
+            return redirect()->back()->with('error', 'Your Verification Code is Incorrect');
         }
-       
+
 
         return redirect('/');
 

@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Session;
 
 
 Route::get('/cls', function() {
+    Artisan::call('optimize');
     Session::flush();
     return 'FINISHED';
 });
