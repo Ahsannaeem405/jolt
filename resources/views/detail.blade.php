@@ -46,7 +46,7 @@
 
                 <div class="col-md-12 my-3">
                     <lable>Address</lable>
-                    <input type="text" name="address" required class="form-control" placeholder="Address">
+                    <input id="placeInput" type="text" name="address" required class="form-control" placeholder="Address">
                 </div>
 
                 <div class="col-md-12 my-3 d-flex justify-content-end">
@@ -68,7 +68,29 @@
     @endsection
 
     @section('js')
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8LG6Js3S4yieiAfNJbIk3IW0S-aNDTOw&libraries=places&callback=initAutocomplete" async></script>
     <script>
+
+        //auto complete api//
+        let autocomplete;
+/* ------------------------- Initialize Autocomplete ------------------------ */
+function initAutocomplete() {
+    const input = document.getElementById("placeInput");
+    const options = {
+        componentRestrictions: { country: "US" }
+    }
+    autocomplete = new google.maps.places.Autocomplete(input, options);
+    autocomplete.addListener("place_changed", onPlaceChange)
+}
+
+/* --------------------------- Handle Place Change -------------------------- */
+function onPlaceChange() {
+    const place = autocomplete.getPlace();
+    console.log(place.formatted_address)
+    console.log(place.geometry.location.lat())
+    console.log(place.geometry.location.lng())
+}
+
         $(document).ready(function() {
 
             $("#otp_btn").click(function(e) {

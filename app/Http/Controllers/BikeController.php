@@ -141,10 +141,8 @@ class BikeController extends Controller
     public function pick(Request $request)
     {
         $id = $request->session()->get('id');
-
         $record = step::find($id);
         $record->step = 5;
-
 
         $data = collect($record->data);
         $merge = $data->merge($request->all());
