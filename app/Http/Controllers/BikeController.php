@@ -119,14 +119,20 @@ class BikeController extends Controller
 
     public function detail(Request $request)
     {
+       
 
         $id = $request->session()->get('id');
 
         $record = step::find($id);
-        $record->step = 4;
-        $record->data = $request->all();
-
-        $record->update();
+        if($request->verification_code == $record->verification_code){
+            $record->step = 4;
+            $record->data = $request->all();
+            $record->update();
+        }
+        else{
+            return redirect()->back()->with('error', 'Your Verification Code is Incorrect');  
+        }
+       
 
         return redirect('/');
 
@@ -135,10 +141,8 @@ class BikeController extends Controller
     public function pick(Request $request)
     {
         $id = $request->session()->get('id');
-
         $record = step::find($id);
         $record->step = 5;
-
 
         $data = collect($record->data);
         $merge = $data->merge($request->all());

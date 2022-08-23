@@ -22,6 +22,7 @@ class CreateStepsTable extends Migration
             $table->string('package')->nullable();
             $table->text('accesories')->nullable();
             $table->text('data')->nullable();
+            $table->string('verification_code')->nullable();
             $table->timestamps();
         });
     }

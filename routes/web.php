@@ -40,6 +40,7 @@ Route::get('paynow/{id}',[\App\Http\Controllers\StripePaymentController::class,'
 
 
 Route::get('order',[\App\Http\Controllers\OrderController::class,'index']);
+Route::post('sentotp',[\App\Http\Controllers\OrderController::class,'Sendotp']);
 
 Auth::routes(['register' => false]);
 

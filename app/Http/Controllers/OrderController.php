@@ -80,4 +80,24 @@ class OrderController extends Controller
         }
 
     }
+
+    public function Sendotp(Request $request){
+
+        $id = $request->session()->get('id');
+        $record = step::find($id);
+        $otp = rand(10000,100000);
+        $record->verification_code = $otp;
+        $record->update();
+
+        $data=array(
+            'view'=>'otp',
+            'subject'=>mail_messasge::otp,
+            'type'=>'user',
+            'otp' => $otp,
+            'email' => $request->email,
+        );
+        
+       $this->order->SendOtp($data);
+
+    }
 }
